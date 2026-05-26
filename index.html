@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>innovationTECH | Desarrollo de Software & Consultoría de Inteligencia Artificial</title>
+    <meta name="description" content="Líderes en transformación digital. Ofrecemos soluciones premium en Inteligencia Artificial, desarrollo en la nube, ciberseguridad y software a medida para empresas globales.">
+    <meta name="keywords" content="Inteligencia Artificial, Desarrollo de Software, Cloud Native, Ciberseguridad, DevOps, Consultoria IT, Colombia, Latam">
+    <meta name="author" content="innovationTECH">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://innovationtech.example.com/">
+    <meta property="og:title" content="innovationTECH | Desarrollo de Software & IA">
+    <meta property="og:description" content="Transformamos tus ideas en soluciones digitales inteligentes y de alta escalabilidad.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://innovationtech.example.com/">
+    <meta property="twitter:title" content="innovationTECH | Desarrollo de Software & IA">
+    <meta property="twitter:description" content="Transformamos tus ideas en soluciones digitales inteligentes y de alta escalabilidad.">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Gradient Blobs -->
+    <div class="bg-blobs" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="#hero" class="logo" id="nav-logo" aria-label="innovationTECH Inicio">
+                <div class="logo-icon"></div>
+                <span>innovation<span class="text-gradient">TECH</span></span>
+            </a>
+            
+            <nav id="nav-menu-wrapper">
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#hero" class="nav-link" id="link-hero">Inicio</a></li>
+                    <li><a href="#services" class="nav-link" id="link-services">Servicios</a></li>
+                    <li><a href="#lab" class="nav-link" id="link-lab">Laboratorio IA</a></li>
+                    <li><a href="#testimonials" class="nav-link" id="link-testimonials">Testimonios</a></li>
+                    <li><a href="#contact" class="nav-link" id="link-contact">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-cta">
+                <a href="#contact" class="btn btn-secondary" id="btn-header-quote">Cotizar Proyecto</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-menu">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" id="menu-icon-path"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="container hero-grid">
+                <div class="hero-content animate-fade-in">
+                    <div class="badge">
+                        <span class="badge-dot"></span>
+                        <span>Liderando la revolución digital</span>
+                    </div>
+                    <h1 class="hero-title">Transformamos Ideas en Realidad <br><span class="text-gradient">Digital Inteligente</span></h1>
+                    <p class="hero-subtitle" id="hero-subtitle"></p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary" id="btn-hero-cta">Comenzar Ahora</a>
+                        <a href="#services" class="btn btn-secondary" id="btn-hero-sec">Ver Soluciones</a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="interactive-sphere-wrap">
+                        <div class="sphere-core"></div>
+                        
+                        <!-- Floating Glass Card 1 -->
+                        <div class="glass-card-float card-pos-1">
+                            <div class="contact-icon" style="width:40px; height:40px; background:rgba(0,242,254,0.1); border-radius:10px;">
+                                <svg width="20" height="20" fill="none" stroke="var(--color-primary)" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="font-size:0.85rem; margin:0; color:var(--text-white);">Infraestructura Cloud</h4>
+                                <span style="font-size:0.75rem; color:var(--color-success); font-weight:700;">99.99% Uptime Activo</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Glass Card 2 -->
+                        <div class="glass-card-float card-pos-2">
+                            <div class="contact-icon" style="width:40px; height:40px; background:rgba(127,0,255,0.1); border-radius:10px;">
+                                <svg width="20" height="20" fill="none" stroke="var(--color-secondary)" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="font-size:0.85rem; margin:0; color:var(--text-white);">Modelos de IA Activos</h4>
+                                <span style="font-size:0.75rem; color:var(--color-primary); font-weight:700;">Eficiencia +45% Operativa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="stats-bar" id="stats">
+            <div class="container stats-grid">
+                <div class="stat-item" id="stat-1">
+                    <h3 data-target="150" class="stat-counter">0</h3>
+                    <p>Proyectos Exitosos</p>
+                </div>
+                <div class="stat-item" id="stat-2">
+                    <h3 data-target="99" class="stat-counter">0</h3>
+                    <p>% Satisfacción</p>
+                </div>
+                <div class="stat-item" id="stat-3">
+                    <h3 data-target="15" class="stat-counter">0</h3>
+                    <p>ms Latencia Media</p>
+                </div>
+                <div class="stat-item" id="stat-4">
+                    <h3 data-target="25" class="stat-counter">0</h3>
+                    <p>M+ Peticiones / Día</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="section-padding" id="services">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Nuestros <span class="text-gradient">Servicios Especializados</span></h2>
+                    <p>Combinamos experiencia técnica de primer nivel con metodologías ágiles para entregar soluciones tecnológicas robustas, seguras y de alto valor comercial.</p>
+                </div>
+                
+                <div class="services-grid">
+                    <!-- Service 1: Artificial Intelligence -->
+                    <div class="service-card" id="service-ai">
+                        <div class="service-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                            </svg>
+                        </div>
+                        <h3>Consultoría de Inteligencia Artificial</h3>
+                        <p>Diseñamos e implementamos modelos de Machine Learning personalizados, procesamiento de lenguaje natural (NLP) y visión artificial adaptados a sus procesos corporativos.</p>
+                        <a href="#contact" class="service-link" id="link-service-ai-cta">Saber más 
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Service 2: Cloud Native Development -->
+                    <div class="service-card" id="service-cloud">
+                        <div class="service-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                            </svg>
+                        </div>
+                        <h3>Desarrollo Cloud Native</h3>
+                        <p>Construimos microservicios altamente escalables y resilientes, orquestados con Kubernetes e integrados en arquitecturas multi-cloud híbridas en AWS, Azure o GCP.</p>
+                        <a href="#contact" class="service-link" id="link-service-cloud-cta">Saber más 
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Service 3: Cybersecurity -->
+                    <div class="service-card" id="service-security">
+                        <div class="service-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <h3>Seguridad de la Información</h3>
+                        <p>Auditorías integrales de seguridad, implementación de políticas Zero-Trust, pruebas de penetración avanzadas y blindaje de código contra amenazas cibernéticas modernas.</p>
+                        <a href="#contact" class="service-link" id="link-service-sec-cta">Saber más 
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Service 4: Custom Enterprise Software -->
+                    <div class="service-card" id="service-software">
+                        <div class="service-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                            </svg>
+                        </div>
+                        <h3>Desarrollo de Software Premium</h3>
+                        <p>Ingeniería de software a la medida para plataformas web corporativas y aplicaciones móviles nativas de alto impacto visual y rendimiento impecable.</p>
+                        <a href="#contact" class="service-link" id="link-service-soft-cta">Saber más 
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Service 5: IoT & Real-time Dashboards -->
+                    <div class="service-card" id="service-iot">
+                        <div class="service-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3>Soluciones IoT Avanzadas</h3>
+                        <p>Diseño de redes de sensores inteligentes, arquitecturas Edge Computing de procesamiento rápido y tableros interactivos analíticos en tiempo real.</p>
+                        <a href="#contact" class="service-link" id="link-service-iot-cta">Saber más 
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Service 6: IT Consulting & DevOps -->
+                    <div class="service-card" id="service-devops">
+                        <div class="service-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H17"/>
+                            </svg>
+                        </div>
+                        <h3>Automatización DevOps y CI/CD</h3>
+                        <p>Automatizamos su pipeline de desarrollo desde la integración hasta la entrega continua, mejorando la velocidad de despliegue con fiabilidad total.</p>
+                        <a href="#contact" class="service-link" id="link-service-devops-cta">Saber más 
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Innovation Lab Section -->
+        <section class="section-padding" id="lab" style="background: rgba(7, 8, 13, 0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Laboratorio de <span class="text-gradient">Innovación Interactiva</span></h2>
+                    <p>Configura los parámetros técnicos de tu proyecto y nuestro simulador recomendará la arquitectura, tecnologías y tiempos ideales de manera inmediata.</p>
+                </div>
+                
+                <!-- Dynamic Configurator widget -->
+                <div class="configurator-wrap" id="configurator">
+                    <div class="configurator-steps">
+                        <!-- Step inputs -->
+                        <div class="config-inputs">
+                            <h3>Parámetros de tu Proyecto</h3>
+                            
+                            <!-- Sector selector -->
+                            <div class="form-group-config">
+                                <label>Sector Industrial</label>
+                                <div class="choice-grid" id="sector-choices">
+                                    <button class="choice-btn active" data-value="fintech">Finanzas</button>
+                                    <button class="choice-btn" data-value="ecommerce">E-Commerce</button>
+                                    <button class="choice-btn" data-value="health">Salud</button>
+                                    <button class="choice-btn" data-value="logistics">Logística</button>
+                                    <button class="choice-btn" data-value="edtech">Educación</button>
+                                    <button class="choice-btn" data-value="industry">Manufactura</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Objective / Primary Goal -->
+                            <div class="form-group-config">
+                                <label>Objetivo Tecnológico</label>
+                                <div class="choice-grid" id="goal-choices">
+                                    <button class="choice-btn active" data-value="ai">IA y Predicción</button>
+                                    <button class="choice-btn" data-value="cloud">Escalabilidad</button>
+                                    <button class="choice-btn" data-value="iot">Conectividad IoT</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Scale / User Volume Slider -->
+                            <div class="form-group-config">
+                                <label>Volumen Operativo (Peticiones/Usuario diario)</label>
+                                <div class="slider-container">
+                                    <input type="range" min="1" max="3" value="2" class="config-slider" id="scale-slider" aria-label="Escala del volumen de usuarios de la aplicación">
+                                    <div class="slider-labels">
+                                        <span>Startup (&lt;10k)</span>
+                                        <span>Crecimiento (&lt;100k)</span>
+                                        <span>Enterprise (1M+)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Dynamic Recommended Architecture output card -->
+                        <div class="config-output" id="config-output-pane">
+                            <div class="output-header">
+                                <span>Arquitectura Recomendada</span>
+                                <h4 id="rec-title">Ecosistema AI Predictivo</h4>
+                            </div>
+                            
+                            <div class="rec-architecture">
+                                <div class="rec-item">
+                                    <div class="rec-badge" id="rec-tech-1">Python</div>
+                                    <div class="rec-details">
+                                        <h5 id="rec-comp-1">Algoritmos ML</h5>
+                                        <p id="rec-desc-1">Modelos con Scikit-learn / TensorFlow integrados.</p>
+                                    </div>
+                                </div>
+                                <div class="rec-item">
+                                    <div class="rec-badge" id="rec-tech-2">FastAPI</div>
+                                    <div class="rec-details">
+                                        <h5 id="rec-comp-2">Servicios REST</h5>
+                                        <p id="rec-desc-2">Microservicios de alto rendimiento asíncrono.</p>
+                                    </div>
+                                </div>
+                                <div class="rec-item">
+                                    <div class="rec-badge" id="rec-tech-3">AWS ECS</div>
+                                    <div class="rec-details">
+                                        <h5 id="rec-comp-3">Orquestación</h5>
+                                        <p id="rec-desc-3">Contenedores Docker serverless con escalado automático.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="output-footer">
+                                <div class="price-estimate">
+                                    <span>Tiempos Aprox. de Entrega</span>
+                                    <div class="price-val" id="rec-time">10 - 14 Semanas</div>
+                                </div>
+                                <a href="#contact" class="btn btn-primary" style="padding: 0.6rem 1.25rem; font-size: 0.85rem;" id="btn-configurator-cta">Diseñar Arquitectura</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="section-padding" id="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Casos de Éxito de <span class="text-gradient">Nuestros Clientes</span></h2>
+                    <p>Empresas que confían en nosotros para acelerar su transformación técnica y escalar sus operaciones digitales.</p>
+                </div>
+                
+                <div class="testimonials-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card" id="testi-1">
+                        <span class="quote-icon">“</span>
+                        <p class="testimonial-text">"La consultoría en IA de innovationTECH cambió radicalmente nuestra toma de decisiones. Automatizamos el 70% del procesamiento de créditos y redujimos la latencia del sistema a la mitad."</p>
+                        <div class="client-info">
+                            <div class="client-avatar">CM</div>
+                            <div class="client-details">
+                                <h4>Carlos Mendoza</h4>
+                                <p>CTO, FinTech Latam</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card" id="testi-2">
+                        <span class="quote-icon">“</span>
+                        <p class="testimonial-text">"Migrar nuestro sistema legacy a una infraestructura Cloud Native con Kubernetes fue fluido. Soporta eventos de ventas de alto tráfico sin una sola caída."</p>
+                        <div class="client-info">
+                            <div class="client-avatar">SG</div>
+                            <div class="client-details">
+                                <h4>Sofía Giraldo</h4>
+                                <p>Directora de Operaciones, E-com Global</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card" id="testi-3">
+                        <span class="quote-icon">“</span>
+                        <p class="testimonial-text">"La seguridad de nuestros datos clínicos es crítica. El equipo auditó y rediseñó nuestra arquitectura bajo estándares Zero-Trust con absoluto profesionalismo."</p>
+                        <div class="client-info">
+                            <div class="client-avatar">AR</div>
+                            <div class="client-details">
+                                <h4>Dr. Alejandro Ruiz</h4>
+                                <p>Fundador, BioHealth Labs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section-padding" id="contact" style="background: rgba(7, 8, 13, 0.4); border-top: 1px solid var(--glass-border);">
+            <div class="container contact-grid">
+                <!-- Left info -->
+                <div class="contact-info">
+                    <div>
+                        <div class="badge">
+                            <span class="badge-dot"></span>
+                            <span>Hablemos hoy</span>
+                        </div>
+                        <h3>¿Tienes un proyecto en mente? <br><span class="text-gradient">Escríbenos hoy mismo</span></h3>
+                        <p>Completa el formulario y uno de nuestros arquitectos de soluciones senior se pondrá en contacto contigo en menos de 24 horas.</p>
+                    </div>
+                    
+                    <div class="contact-method" id="contact-mail">
+                        <div class="contact-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-detail">
+                            <h4>Correo de Ventas</h4>
+                            <p><a href="mailto:solutions@innovationtech.com">solutions@innovationtech.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-method" id="contact-phone">
+                        <div class="contact-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-detail">
+                            <h4>Teléfono / WhatsApp</h4>
+                            <p><a href="tel:+573005550199">+57 (300) 555-0199</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-method" id="contact-loc">
+                        <div class="contact-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-detail">
+                            <h4>Oficina Central</h4>
+                            <p>Calle 93 # 12 - 45, Bogotá, Colombia</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form right -->
+                <div class="contact-form-container" id="contact-wrapper">
+                    <!-- Submission success panel overlay -->
+                    <div class="form-success-message" id="success-overlay" role="alert" aria-hidden="true">
+                        <div class="success-icon">
+                            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-size:1.6rem; color:var(--text-white);">¡Mensaje Enviado con Éxito!</h3>
+                        <p style="max-width: 320px; color:var(--text-gray);">Gracias por contactar a innovationTECH. Un asesor técnico senior responderá tu solicitud en breve.</p>
+                        <button class="btn btn-secondary" style="margin-top: 1.5rem;" id="btn-success-close">Cerrar</button>
+                    </div>
+
+                    <form id="contact-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="contact-name" class="form-input" placeholder=" " required autocomplete="name">
+                                <label for="contact-name" class="form-label">Nombre Completo</label>
+                                <span class="form-error" id="error-name">El nombre es requerido.</span>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="contact-email" class="form-input" placeholder=" " required autocomplete="email">
+                                <label for="contact-email" class="form-label">Correo Electrónico</label>
+                                <span class="form-error" id="error-email">Ingresa un correo electrónico válido.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="contact-subject" class="form-input" placeholder=" " required>
+                            <label for="contact-subject" class="form-label">Asunto</label>
+                            <span class="form-error" id="error-subject">El asunto es requerido.</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="contact-message" class="form-input" placeholder=" " required></textarea>
+                            <label for="contact-message" class="form-label">Detalles del Proyecto</label>
+                            <span class="form-error" id="error-message">Por favor describe tu proyecto.</span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 12px; margin-top: 1rem;" id="btn-submit-form">
+                            Enviar Solicitud
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand" id="footer-branding">
+                <a href="#hero" class="logo" style="margin-bottom:1rem;" aria-label="innovationTECH Inicio">
+                    <div class="logo-icon"></div>
+                    <span>innovation<span class="text-gradient">TECH</span></span>
+                </a>
+                <p>Ingeniería de software premium e inteligencia artificial para impulsar empresas hacia el futuro de los negocios inteligentes.</p>
+                <div class="social-links">
+                    <a href="https://linkedin.com" class="social-icon" aria-label="LinkedIn de innovationTECH">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com" class="social-icon" aria-label="GitHub de innovationTECH">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com" class="social-icon" aria-label="X (Twitter) de innovationTECH">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-nav" id="footer-links-1">
+                <h4>Servicios</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Consultoría IA</a></li>
+                    <li><a href="#services">Desarrollo Cloud</a></li>
+                    <li><a href="#services">Ciberseguridad</a></li>
+                    <li><a href="#services">Software Premium</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-nav" id="footer-links-2">
+                <h4>Compañía</h4>
+                <ul class="footer-links">
+                    <li><a href="#hero">Sobre Nosotros</a></li>
+                    <li><a href="#testimonials">Casos de Éxito</a></li>
+                    <li><a href="#lab">Simulador de Soluciones</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter" id="footer-news">
+                <h4>Boletín Tecnológico</h4>
+                <p>Suscríbete para recibir tendencias y análisis técnicos de nuestros especialistas directamente en tu correo.</p>
+                <form class="newsletter-form" id="newsletter-form" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte!'); this.reset();">
+                    <input type="email" placeholder="Tu correo electrónico" class="newsletter-input" required id="newsletter-email" aria-label="Ingresa tu correo para el boletín">
+                    <button type="submit" class="newsletter-btn" id="btn-newsletter" aria-label="Suscribirse al boletín">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <span>&copy; 2026 innovationTECH. Todos los derechos reservados.</span>
+            <div class="footer-bottom-links">
+                <a href="#hero" id="link-terms">Términos de Servicio</a>
+                <a href="#hero" id="link-privacy">Políticas de Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script file -->
+    <script src="script.js"></script>
+</body>
+</html>
