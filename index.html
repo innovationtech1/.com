@@ -2,12 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
     <!-- SEO Meta Tags -->
     <title>innovationTECH | Marketing Digital, Contenido, Video y Diseño Web</title>
-    <meta name="description" content="Agencia de marketing digital en Colombia. Creación de contenido, edición de video, logotipos, páginas web y estrategia en redes. Contrata online con precios accesibles en USD.">
-    <meta name="keywords" content="marketing digital, creación de contenido, edición de video, logotipos, páginas web, redes sociales, Colombia, Latam, innovationTECH">
+    <meta name="description" content="Agencia de marketing digital en San Antonio, TX. Creación de contenido, edición de video, logotipos, páginas web y estrategia en redes. Contrata online con precios accesibles en USD.">
+    <meta name="keywords" content="marketing digital, creación de contenido, edición de video, logotipos, páginas web, redes sociales, San Antonio TX, Texas, innovationTECH">
     <meta name="author" content="innovationTECH">
     <meta name="robots" content="index, follow">
     
@@ -16,13 +16,18 @@
     <meta property="og:url" content="https://innovationtech.example.com/">
     <meta property="og:title" content="innovationTECH | Marketing Digital y Contenido">
     <meta property="og:description" content="Impulsa tu marca con contenido, video, diseño y web. Precios claros y contratación online fácil.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1611162616305-c69b3fa7a2be?q=80&w=1200&auto=format&fit=crop">
+    <meta property="og:image" content="assets/logo.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://innovationtech.example.com/">
     <meta property="twitter:title" content="innovationTECH | Marketing Digital y Contenido">
     <meta property="twitter:description" content="Impulsa tu marca con contenido, video, diseño y web. Precios claros y contratación online fácil.">
+
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -37,7 +42,7 @@
     <header class="header" id="header">
         <div class="container nav-container">
             <a href="#hero" class="logo" id="nav-logo" aria-label="innovationTECH Inicio">
-                <div class="logo-icon"></div>
+                <img src="assets/logo.png" alt="" class="logo-img" width="44" height="44">
                 <span>innovation<span class="text-gradient">TECH</span></span>
             </a>
             
@@ -49,6 +54,9 @@
                     <li><a href="#cotizador" class="nav-link" id="link-cotizador">Cotizador</a></li>
                     <li><a href="#order" class="nav-link" id="link-order">Contratar</a></li>
                     <li><a href="#contact" class="nav-link" id="link-contact">Contacto</a></li>
+                    <li class="nav-menu-cta">
+                        <a href="#order" class="btn btn-primary btn-nav-mobile">Contratar ahora</a>
+                    </li>
                 </ul>
             </nav>
 
@@ -71,9 +79,13 @@
                 <div class="hero-content animate-fade-in">
                     <div class="badge">
                         <span class="badge-dot"></span>
-                        <span>Tu agencia creativa digital</span>
+                        <span>San Antonio, TX · Agencia creativa</span>
                     </div>
                     <h1 class="hero-title">Marketing Digital que <br><span class="text-gradient">Hace Crecer tu Marca</span></h1>
+                    <p class="hero-slogan">
+                        <span class="hero-slogan-main">«Creamos impacto visual.</span>
+                        <span class="hero-slogan-accent">Tú recibes clientes.»</span>
+                    </p>
                     <p class="hero-subtitle" id="hero-subtitle"></p>
                     <div class="hero-actions">
                         <a href="#order" class="btn btn-primary" id="btn-hero-cta">Contratar Servicios</a>
@@ -82,30 +94,54 @@
                 </div>
                 
                 <div class="hero-visual">
-                    <div class="interactive-sphere-wrap">
-                        <div class="sphere-core"></div>
-                        <div class="glass-card-float card-pos-1">
-                            <div class="contact-icon" style="width:40px; height:40px; background:rgba(0,242,254,0.1); border-radius:10px;">
-                                <svg width="20" height="20" fill="none" stroke="var(--color-primary)" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 style="font-size:0.85rem; margin:0; color:var(--text-white);">Contenido para redes</h4>
-                                <span style="font-size:0.75rem; color:var(--color-success); font-weight:700;">Posts listos para publicar</span>
+                    <div class="hero-carousel" id="hero-carousel" aria-roledescription="carousel" aria-label="Servicios populares">
+                        <div class="carousel-viewport">
+                            <div class="carousel-track" id="carousel-track">
+                                <article class="carousel-slide active" data-slide="0" aria-hidden="false">
+                                    <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7a2be?w=900&q=80&auto=format&fit=crop" alt="Marketing digital en redes sociales" loading="eager">
+                                    <div class="carousel-caption">
+                                        <span class="carousel-tag">Más popular</span>
+                                        <h3>Marketing Digital</h3>
+                                        <p>Estrategia y gestión de redes sociales</p>
+                                        <span class="carousel-price">Desde $199/mes</span>
+                                    </div>
+                                </article>
+                                <article class="carousel-slide" data-slide="1" aria-hidden="true">
+                                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&q=80&auto=format&fit=crop" alt="Creación de contenido para marcas" loading="lazy">
+                                    <div class="carousel-caption">
+                                        <span class="carousel-tag">Trending</span>
+                                        <h3>Creación de Contenido</h3>
+                                        <p>Posts, copy y piezas listas para publicar</p>
+                                        <span class="carousel-price">Desde $149</span>
+                                    </div>
+                                </article>
+                                <article class="carousel-slide" data-slide="2" aria-hidden="true">
+                                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=900&q=80&auto=format&fit=crop" alt="Edición profesional de video" loading="lazy">
+                                    <div class="carousel-caption">
+                                        <span class="carousel-tag">Alta demanda</span>
+                                        <h3>Edición de Video</h3>
+                                        <p>Reels, TikToks y videos corporativos</p>
+                                        <span class="carousel-price">Desde $79</span>
+                                    </div>
+                                </article>
+                                <article class="carousel-slide" data-slide="3" aria-hidden="true">
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80&auto=format&fit=crop" alt="Diseño y desarrollo de páginas web" loading="lazy">
+                                    <div class="carousel-caption">
+                                        <span class="carousel-tag">Top servicio</span>
+                                        <h3>Páginas Web</h3>
+                                        <p>Landing pages y sitios que convierten</p>
+                                        <span class="carousel-price">Desde $399</span>
+                                    </div>
+                                </article>
                             </div>
                         </div>
-                        <div class="glass-card-float card-pos-2">
-                            <div class="contact-icon" style="width:40px; height:40px; background:rgba(127,0,255,0.1); border-radius:10px;">
-                                <svg width="20" height="20" fill="none" stroke="var(--color-secondary)" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 style="font-size:0.85rem; margin:0; color:var(--text-white);">Videos editados</h4>
-                                <span style="font-size:0.75rem; color:var(--color-primary); font-weight:700;">Reels y corporativos</span>
-                            </div>
-                        </div>
+                        <button type="button" class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Servicio anterior">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <button type="button" class="carousel-btn carousel-next" id="carousel-next" aria-label="Siguiente servicio">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                        <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Seleccionar servicio"></div>
                     </div>
                 </div>
             </div>
@@ -425,7 +461,7 @@
                         </div>
                         <div class="contact-detail">
                             <h4>Ubicación</h4>
-                            <p>Bogotá, Colombia — Atención remota Latam</p>
+                            <p>9019 Vía Hermosa, San Antonio, TX 78245</p>
                         </div>
                     </div>
                 </div>
@@ -482,7 +518,7 @@
         <div class="container footer-grid">
             <div class="footer-brand" id="footer-branding">
                 <a href="#hero" class="logo" style="margin-bottom:1rem;" aria-label="innovationTECH Inicio">
-                    <div class="logo-icon"></div>
+                    <img src="assets/logo.png" alt="" class="logo-img" width="44" height="44">
                     <span>innovation<span class="text-gradient">TECH</span></span>
                 </a>
                 <p>Marketing digital, contenido creativo, video, diseño y páginas web para hacer crecer tu marca con precios accesibles.</p>

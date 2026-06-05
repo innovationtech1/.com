@@ -714,9 +714,95 @@ function initContactForm() {
     });
 }
 
+function initHeroCarousel() {
+    const carousel = document.getElementById('hero-carousel');
+    const track = document.getElementById('carousel-track');
+    const dotsContainer = document.getElementById('carousel-dots');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    if (!carousel || !track) return;
+
+    const slides = track.querySelectorAll('.carousel-slide');
+    const total = slides.length;
+    let current = 0;
+    let autoplayTimer = null;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const AUTOPLAY_MS = 5000;
+
+    slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = `carousel-dot${i === 0 ? ' active' : ''}`;
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `Ver servicio ${i + 1}`);
+        dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+    const goTo = (index) => {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        slides.forEach((slide, i) => {
+            const active = i === current;
+            slide.classList.toggle('active', active);
+            slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        });
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === current);
+            dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
+        });
+    };
+
+    const next = () => goTo(current + 1);
+    const prev = () => goTo(current - 1);
+
+    const startAutoplay = () => {
+        stopAutoplay();
+        autoplayTimer = setInterval(next, AUTOPLAY_MS);
+    };
+
+    const stopAutoplay = () => {
+        if (autoplayTimer) clearInterval(autoplayTimer);
+    };
+
+    prevBtn?.addEventListener('click', () => { prev(); startAutoplay(); });
+    nextBtn?.addEventListener('click', () => { next(); startAutoplay(); });
+
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('focusin', stopAutoplay);
+    carousel.addEventListener('focusout', startAutoplay);
+
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) next();
+            else prev();
+            startAutoplay();
+        }
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAutoplay();
+        else startAutoplay();
+    });
+
+    startAutoplay();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     loadCart();
+    initHeroCarousel();
 
     // Header scroll
     const header = document.getElementById('header');
@@ -751,16 +837,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.getElementById('nav-menu');
     const menuIconPath = document.getElementById('menu-icon-path');
 
+    const closeMenu = () => {
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        menuIconPath.setAttribute('d', 'M4 6h16M4 12h16m-7 6h7');
+    };
+
+    const openMenu = () => {
+        mobileToggle.setAttribute('aria-expanded', 'true');
+        navMenu.classList.add('active');
+        document.body.classList.add('menu-open');
+        menuIconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+    };
+
     const toggleMenu = () => {
         const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-        mobileToggle.setAttribute('aria-expanded', !isExpanded);
-        navMenu.classList.toggle('active');
-        menuIconPath.setAttribute('d', !isExpanded ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7');
+        if (isExpanded) closeMenu();
+        else openMenu();
     };
+
     mobileToggle.addEventListener('click', toggleMenu);
+
     navLinks.forEach(link => link.addEventListener('click', () => {
-        if (navMenu.classList.contains('active')) toggleMenu();
+        if (navMenu.classList.contains('active')) closeMenu();
     }));
+
+    document.querySelector('.btn-nav-mobile')?.addEventListener('click', () => {
+        if (navMenu.classList.contains('active')) closeMenu();
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1100 && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
 
     // Typewriter
     const subtitleEl = document.getElementById('hero-subtitle');
