@@ -1128,5 +1128,291 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartFab();
     initOrderForm();
     initContactForm();
+    initPaymentSystem();
     prefillContactSubject();
 });
+
+
+// --- Payment System Integration ---
+const STRIPE_PUBLIC_KEY = 'pk_test_51DEMO_REPLACE_WITH_YOUR_KEY'; // REEMPLAZAR con tu clave real
+const PAYMENT_CONFIG = {
+    cashApp: '$InnovationTech',
+    zelle: 'innovationtech@email.com',
+    paypal: 'innovationtech@paypal.com',
+    chime: 'innovationtech@chime.com'
+};
+
+let stripe = null;
+let cardElement = null;
+let currentQuotationData = null;
+
+function initPaymentSystem() {
+    // Inicializar Stripe
+    try {
+        stripe = Stripe(STRIPE_PUBLIC_KEY);
+        const elements = stripe.elements();
+        cardElement = elements.create('card', {
+            style: {
+                base: {
+                    color: '#f1f5f9',
+                    fontFamily: '"Plus Jakarta Sans", sans-serif',
+                    fontSize: '16px',
+                    '::placeholder': {
+                        color: '#64748b'
+                    }
+                },
+                invalid: {
+                    color: '#e60000'
+                }
+            }
+        });
+        cardElement.mount('#card-element');
+        
+        cardElement.on('change', (event) => {
+            const displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+    } catch (error) {
+        console.warn('⚠️ Stripe no pudo inicializarse:', error);
+    }
+    
+    // Inicializar Firebase
+    if (window.FirebaseDB) {
+        FirebaseDB.initialize();
+    }
+    
+    // Event listeners para métodos de pago
+    const paymentModal = document.getElementById('payment-modal');
+    const btnProceedPayment = document.getElementById('btn-proceed-payment');
+    const btnBackToPreview = document.getElementById('btn-back-to-preview');
+    const btnClosePayment = document.getElementById('btn-close-payment');
+    const btnSkipPayment = document.getElementById('btn-skip-payment');
+    const btnCompletePayment = document.getElementById('btn-complete-payment');
+    
+    // Abrir modal de pago
+    btnProceedPayment.addEventListener('click', () => {
+        openPaymentModal();
+    });
+    
+    // Volver a vista previa
+    btnBackToPreview.addEventListener('click', () => {
+        closePaymentModal();
+        showPreview();
+    });
+    
+    // Cerrar modal de pago
+    btnClosePayment.addEventListener('click', closePaymentModal);
+    
+    // Pagar después
+    btnSkipPayment.addEventListener('click', () => {
+        closePaymentModal();
+        submitOrder(false);
+    });
+    
+    // Completar pago
+    btnCompletePayment.addEventListener('click', handlePaymentCompletion);
+    
+    // Cambiar método de pago
+    document.querySelectorAll('.payment-method-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const method = this.getAttribute('data-method');
+            selectPaymentMethod(method);
+        });
+    });
+    
+    // Cerrar al hacer clic fuera
+    paymentModal.addEventListener('click', (e) => {
+        if (e.target === paymentModal) {
+            closePaymentModal();
+        }
+    });
+}
+
+function openPaymentModal() {
+    const paymentModal = document.getElementById('payment-modal');
+    const previewModal = document.getElementById('preview-modal');
+    const total = getCartTotal();
+    
+    // Actualizar total
+    document.getElementById('payment-total-display').textContent = formatUSD(total);
+    document.getElementById('cashapp-amount').textContent = formatUSD(total);
+    document.getElementById('zelle-amount').textContent = formatUSD(total);
+    document.getElementById('paypal-amount').textContent = formatUSD(total);
+    document.getElementById('chime-amount').textContent = formatUSD(total);
+    
+    // Cerrar vista previa
+    previewModal.style.display = 'none';
+    previewModal.setAttribute('aria-hidden', 'true');
+    
+    // Abrir modal de pago
+    paymentModal.style.display = 'flex';
+    paymentModal.setAttribute('aria-hidden', 'false');
+    
+    // Preparar datos de cotización
+    const formData = getFormData();
+    currentQuotationData = {
+        customerName: formData.name,
+        customerEmail: formData.email,
+        customerPhone: formData.phone,
+        customerCompany: formData.company || null,
+        deliveryDate: formData.date,
+        brief: formData.brief,
+        services: cart.map(item => ({
+            serviceId: item.serviceId,
+            serviceName: item.serviceName,
+            tier: item.tier,
+            tierLabel: item.tierLabel,
+            quantity: item.qty,
+            basePrice: item.basePrice,
+            total: item.total,
+            deliverables: SERVICES[item.serviceId]?.deliverables?.[item.tier] || [],
+            extras: item.extras
+        })),
+        subtotal: total,
+        total: total,
+        status: 'pending',
+        paymentMethod: null,
+        paymentConfirmation: null
+    };
+}
+
+function closePaymentModal() {
+    const paymentModal = document.getElementById('payment-modal');
+    paymentModal.style.display = 'none';
+    paymentModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+}
+
+function selectPaymentMethod(method) {
+    // Actualizar UI
+    document.querySelectorAll('.payment-method-card').forEach(card => {
+        card.classList.remove('active');
+        const radio = card.querySelector('input[type="radio"]');
+        radio.checked = false;
+    });
+    
+    const selectedCard = document.querySelector(`[data-method="${method}"]`);
+    selectedCard.classList.add('active');
+    selectedCard.querySelector('input[type="radio"]').checked = true;
+    
+    // Mostrar/ocultar detalles
+    document.querySelectorAll('.payment-method-details').forEach(details => {
+        details.style.display = 'none';
+    });
+    
+    const detailsId = `${method}-${method === 'card' ? 'payment-' : ''}details`;
+    const details = document.getElementById(detailsId);
+    if (details) {
+        details.style.display = 'block';
+    }
+}
+
+async function handlePaymentCompletion() {
+    const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+    const btnComplete = document.getElementById('btn-complete-payment');
+    const btnText = document.getElementById('payment-btn-text');
+    
+    btnComplete.disabled = true;
+    btnText.textContent = 'Procesando...';
+    
+    try {
+        let paymentResult;
+        
+        switch (selectedMethod) {
+            case 'card':
+                paymentResult = await processStripePayment();
+                break;
+            case 'cashapp':
+                paymentResult = await processManualPayment('cashapp', 'cashapp-confirmation');
+                break;
+            case 'zelle':
+                paymentResult = await processManualPayment('zelle', 'zelle-confirmation');
+                break;
+            case 'paypal':
+                paymentResult = await processManualPayment('paypal', 'paypal-confirmation');
+                break;
+            case 'chime':
+                paymentResult = await processManualPayment('chime', 'chime-confirmation');
+                break;
+        }
+        
+        if (paymentResult.success) {
+            // Guardar en Firebase
+            currentQuotationData.paymentMethod = selectedMethod;
+            currentQuotationData.paymentConfirmation = paymentResult.confirmation;
+            currentQuotationData.status = 'paid';
+            
+            if (window.FirebaseDB) {
+                const saveResult = await FirebaseDB.saveQuotation(currentQuotationData);
+                if (saveResult.success) {
+                    console.log('✅ Cotización guardada en Firebase:', saveResult.id);
+                }
+            }
+            
+            // Cerrar modal de pago y enviar por WhatsApp
+            closePaymentModal();
+            submitOrder(false);
+            
+            // Mostrar mensaje de éxito
+            alert('¡Pago completado exitosamente! Serás redirigido a WhatsApp.');
+        } else {
+            throw new Error(paymentResult.error || 'Error al procesar el pago');
+        }
+    } catch (error) {
+        console.error('❌ Error en el pago:', error);
+        alert('Error al procesar el pago: ' + error.message);
+    } finally {
+        btnComplete.disabled = false;
+        btnText.textContent = 'Completar Pago';
+    }
+}
+
+async function processStripePayment() {
+    try {
+        if (!stripe || !cardElement) {
+            throw new Error('Stripe no está configurado correctamente');
+        }
+        
+        // Crear token de pago
+        const {token, error} = await stripe.createToken(cardElement);
+        
+        if (error) {
+            throw new Error(error.message);
+        }
+        
+        // Aquí normalmente enviarías el token a tu servidor
+        // Por ahora, simulamos un pago exitoso
+        console.log('✅ Token de Stripe creado:', token.id);
+        
+        return {
+            success: true,
+            confirmation: token.id
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.message
+        };
+    }
+}
+
+async function processManualPayment(method, confirmationInputId) {
+    const confirmationInput = document.getElementById(confirmationInputId);
+    const confirmation = confirmationInput?.value.trim();
+    
+    if (!confirmation) {
+        return {
+            success: false,
+            error: 'Por favor ingresa el ID de confirmación del pago'
+        };
+    }
+    
+    return {
+        success: true,
+        confirmation: confirmation
+    };
+}

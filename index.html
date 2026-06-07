@@ -30,6 +30,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
+    
+    <!-- Stripe SDK -->
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
@@ -344,6 +352,157 @@
                                     </button>
                                 </div>
                             </div>
+
+                        <!-- Payment Modal -->
+                        <div class="payment-modal" id="payment-modal" aria-hidden="true">
+                            <div class="payment-modal-content">
+                                <div class="payment-modal-header">
+                                    <button type="button" class="payment-back-btn" id="btn-back-to-preview">
+                                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                                        </svg>
+                                        Volver
+                                    </button>
+                                    <h3>Método de Pago</h3>
+                                    <button type="button" class="preview-close-btn" id="btn-close-payment" aria-label="Cerrar">
+                                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                
+                                <div class="payment-modal-body">
+                                    <div class="payment-summary">
+                                        <div class="payment-summary-row">
+                                            <span>Total a pagar:</span>
+                                            <span class="payment-total-amount" id="payment-total-display">$0.00</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="payment-methods">
+                                        <h4 class="payment-section-title">Selecciona tu método de pago</h4>
+                                        
+                                        <!-- Stripe Card Payment -->
+                                        <div class="payment-method-card active" data-method="card">
+                                            <div class="payment-method-header">
+                                                <div class="payment-method-icon">
+                                                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="payment-method-info">
+                                                    <h5>Tarjeta de Crédito/Débito</h5>
+                                                    <p>Pago seguro con Stripe</p>
+                                                </div>
+                                                <input type="radio" name="payment-method" value="card" checked>
+                                            </div>
+                                            <div class="payment-method-details" id="card-payment-details">
+                                                <div id="card-element" class="stripe-card-element"></div>
+                                                <div id="card-errors" class="payment-error"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Cash App -->
+                                        <div class="payment-method-card" data-method="cashapp">
+                                            <div class="payment-method-header">
+                                                <div class="payment-method-icon" style="background: #00d54b;">
+                                                    <span style="font-weight: bold; color: white;">$</span>
+                                                </div>
+                                                <div class="payment-method-info">
+                                                    <h5>Cash App</h5>
+                                                    <p>Envía a: <strong id="cashapp-tag">$InnovationTech</strong></p>
+                                                </div>
+                                                <input type="radio" name="payment-method" value="cashapp">
+                                            </div>
+                                            <div class="payment-method-details" id="cashapp-details" style="display: none;">
+                                                <div class="payment-instructions">
+                                                    <p>1. Abre tu app de Cash App</p>
+                                                    <p>2. Envía <strong id="cashapp-amount">$0.00</strong> a <strong>$InnovationTech</strong></p>
+                                                    <p>3. Ingresa el ID de confirmación aquí:</p>
+                                                    <input type="text" class="form-input" id="cashapp-confirmation" placeholder="ID de confirmación">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Zelle -->
+                                        <div class="payment-method-card" data-method="zelle">
+                                            <div class="payment-method-header">
+                                                <div class="payment-method-icon" style="background: #6d1ed4;">
+                                                    <span style="font-weight: bold; color: white;">Z</span>
+                                                </div>
+                                                <div class="payment-method-info">
+                                                    <h5>Zelle</h5>
+                                                    <p>Envía a: <strong id="zelle-email">innovationtech@email.com</strong></p>
+                                                </div>
+                                                <input type="radio" name="payment-method" value="zelle">
+                                            </div>
+                                            <div class="payment-method-details" id="zelle-details" style="display: none;">
+                                                <div class="payment-instructions">
+                                                    <p>1. Abre tu app bancaria con Zelle</p>
+                                                    <p>2. Envía <strong id="zelle-amount">$0.00</strong> a <strong>innovationtech@email.com</strong></p>
+                                                    <p>3. Ingresa el ID de confirmación:</p>
+                                                    <input type="text" class="form-input" id="zelle-confirmation" placeholder="ID de confirmación">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- PayPal -->
+                                        <div class="payment-method-card" data-method="paypal">
+                                            <div class="payment-method-header">
+                                                <div class="payment-method-icon" style="background: #0070ba;">
+                                                    <span style="font-weight: bold; color: white;">P</span>
+                                                </div>
+                                                <div class="payment-method-info">
+                                                    <h5>PayPal</h5>
+                                                    <p>Envía a: <strong id="paypal-email">innovationtech@paypal.com</strong></p>
+                                                </div>
+                                                <input type="radio" name="payment-method" value="paypal">
+                                            </div>
+                                            <div class="payment-method-details" id="paypal-details" style="display: none;">
+                                                <div class="payment-instructions">
+                                                    <p>1. Abre PayPal o visita <a href="https://paypal.com" target="_blank" rel="noopener">paypal.com</a></p>
+                                                    <p>2. Envía <strong id="paypal-amount">$0.00</strong> a <strong>innovationtech@paypal.com</strong></p>
+                                                    <p>3. Ingresa el ID de transacción:</p>
+                                                    <input type="text" class="form-input" id="paypal-confirmation" placeholder="ID de transacción">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Chime -->
+                                        <div class="payment-method-card" data-method="chime">
+                                            <div class="payment-method-header">
+                                                <div class="payment-method-icon" style="background: #00c853;">
+                                                    <span style="font-weight: bold; color: white;">C</span>
+                                                </div>
+                                                <div class="payment-method-info">
+                                                    <h5>Chime</h5>
+                                                    <p>Envía a: <strong id="chime-email">innovationtech@chime.com</strong></p>
+                                                </div>
+                                                <input type="radio" name="payment-method" value="chime">
+                                            </div>
+                                            <div class="payment-method-details" id="chime-details" style="display: none;">
+                                                <div class="payment-instructions">
+                                                    <p>1. Abre tu app de Chime</p>
+                                                    <p>2. Envía <strong id="chime-amount">$0.00</strong> a <strong>innovationtech@chime.com</strong></p>
+                                                    <p>3. Ingresa el ID de confirmación:</p>
+                                                    <input type="text" class="form-input" id="chime-confirmation" placeholder="ID de confirmación">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="payment-modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="btn-skip-payment">Pagar Después</button>
+                                    <button type="button" class="btn btn-primary" id="btn-complete-payment">
+                                        <span id="payment-btn-text">Completar Pago</span>
+                                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         </div>
 
                         <form id="order-form" novalidate>
@@ -616,7 +775,13 @@
         <span class="cart-fab-badge" id="cart-fab-badge" hidden>0</span>
     </a>
 
+    <!-- Firebase Configuration -->
+    <script src="firebase-config.js"></script>
+    
+    <!-- Main Script -->
     <script src="script.js"></script>
+    
+    <!-- Auto Update -->
     <script src="auto-update.js"></script>
 </body>
 </html>
