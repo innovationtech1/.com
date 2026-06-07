@@ -452,20 +452,39 @@ function buildOrderMessage(formData) {
     msg += `*Tel/WhatsApp:* ${formData.phone}\n`;
     if (formData.company) msg += `*Empresa:* ${formData.company}\n`;
     msg += `*Entrega deseada:* ${formData.date}\n\n`;
-    msg += '*Servicios:*\n';
+    msg += '*Resumen de cotización:*\n\n';
 
     if (cart.length === 0) {
         msg += '- (Sin items en carrito — consulta general)\n';
     } else {
         cart.forEach((item, i) => {
-            msg += `${i + 1}. ${item.serviceName} (${item.tierLabel})`;
-            if (item.qty > 1) msg += ` x${item.qty}`;
-            msg += ` — ${formatUSD(item.total)}\n`;
+            msg += `*${i + 1}. ${item.serviceName} — ${item.tierLabel}*\n`;
+            if (item.qty > 1) msg += `   Cantidad: x${item.qty}\n`;
+            
+            // Añadir deliverables del servicio
+            const svc = SERVICES[item.serviceId];
+            if (svc && svc.deliverables && svc.deliverables[item.tier]) {
+                msg += `   📋 Incluye:\n`;
+                svc.deliverables[item.tier].forEach(deliverable => {
+                    msg += `   • ${deliverable}\n`;
+                });
+            }
+            
+            // Añadir extras si los hay
+            const extrasLabels = [];
+            if (item.extras.rush) extrasLabels.push('⚡ Entrega urgente');
+            if (item.extras.lang) extrasLabels.push('🌐 Idioma adicional');
+            if (item.extras.revisions) extrasLabels.push('✏️ Revisiones extra');
+            if (extrasLabels.length > 0) {
+                msg += `   🎁 Extras: ${extrasLabels.join(', ')}\n`;
+            }
+            
+            msg += `   💰 Precio: ${formatUSD(item.total)}\n\n`;
         });
-        msg += `\n*TOTAL: ${formatUSD(getCartTotal())}*\n`;
+        msg += `*TOTAL: ${formatUSD(getCartTotal())}*\n`;
     }
 
-    msg += `\n*Brief:*\n${formData.brief}`;
+    msg += `\n*Brief del proyecto:*\n${formData.brief}`;
     return msg;
 }
 
