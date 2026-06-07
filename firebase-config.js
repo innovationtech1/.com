@@ -11,14 +11,13 @@
  */
 
 const firebaseConfig = {
-    // CONFIGURACIÓN DE PRUEBA - REEMPLAZAR CON TUS DATOS REALES
-    apiKey: "AIzaSyDEMO_KEY_REPLACE_WITH_YOUR_REAL_KEY",
-    authDomain: "innovationtech-demo.firebaseapp.com",
-    projectId: "innovationtech-demo",
-    storageBucket: "innovationtech-demo.appspot.com",
-    messagingSenderId: "123456789012",
-    appId: "1:123456789012:web:abcdef123456",
-    databaseURL: "https://innovationtech-demo-default-rtdb.firebaseio.com"
+    apiKey: "AIzaSyB_k44nVjs-9xefFQJEpXF-jqOVeNkAeU0",
+    authDomain: "innovationtech-6e205.firebaseapp.com",
+    projectId: "innovationtech-6e205",
+    storageBucket: "innovationtech-6e205.firebasestorage.app",
+    messagingSenderId: "527729216000",
+    appId: "1:527729216000:web:6024b07fadaa105e72a6e5",
+    measurementId: "G-Q86CHBMZ1H"
 };
 
 // Inicializar Firebase
