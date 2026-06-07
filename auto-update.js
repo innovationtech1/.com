@@ -6,14 +6,14 @@
 const AUTO_UPDATE_CONFIG = {
     // Configuración del repositorio
     owner: 'innovationtech1',
-    repo: '.com',
+    repo: 'innovationtech-app',
     branch: 'main',
     
     // Intervalo de verificación (en milisegundos)
     checkInterval: 30000, // 30 segundos
     
     // GitHub API
-    apiUrl: 'https://api.github.com/repos/innovationtech1/.com/commits/main'
+    apiUrl: 'https://api.github.com/repos/innovationtech1/innovationtech-app/commits/main'
 };
 
 class AutoUpdater {
