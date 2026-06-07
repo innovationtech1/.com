@@ -320,6 +320,32 @@
                             <button type="button" class="btn btn-secondary" style="margin-top: 1.5rem;" id="btn-order-success-close">Cerrar</button>
                         </div>
 
+                        <!-- Vista Previa Modal -->
+                        <div class="preview-modal" id="preview-modal" aria-hidden="true">
+                            <div class="preview-modal-content">
+                                <div class="preview-modal-header">
+                                    <h3>Vista Previa del Proyecto</h3>
+                                    <button type="button" class="preview-close-btn" id="btn-close-preview" aria-label="Cerrar vista previa">
+                                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="preview-modal-body" id="preview-content">
+                                    <!-- El contenido se generará dinámicamente -->
+                                </div>
+                                <div class="preview-modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="btn-edit-preview">Editar</button>
+                                    <button type="button" class="btn btn-primary" id="btn-confirm-send">
+                                        Confirmar y Enviar por WhatsApp
+                                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <form id="order-form" novalidate>
                             <h3 class="order-form-title">Datos de contratación</h3>
                             <div class="form-row">
@@ -356,6 +382,13 @@
                                 <span class="form-error" id="error-order-brief">Describe tu proyecto (mín. 20 caracteres).</span>
                             </div>
                             <div class="order-submit-actions">
+                                <button type="button" class="btn btn-accent" id="btn-preview-order" style="margin-bottom: 1rem;">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 0.5rem;">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
+                                    Vista Previa del Proyecto
+                                </button>
                                 <button type="submit" class="btn btn-primary order-submit-btn" id="btn-submit-order">
                                     Enviar pedido por WhatsApp
                                     <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

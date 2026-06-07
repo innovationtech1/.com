@@ -658,6 +658,172 @@ function initOrderForm() {
 
     document.getElementById('btn-clear-cart').addEventListener('click', clearCart);
 
+    // Preview functionality
+    const previewModal = document.getElementById('preview-modal');
+    const btnPreview = document.getElementById('btn-preview-order');
+    const btnClosePreview = document.getElementById('btn-close-preview');
+    const btnEditPreview = document.getElementById('btn-edit-preview');
+    const btnConfirmSend = document.getElementById('btn-confirm-send');
+
+    btnPreview.addEventListener('click', () => {
+        if (!validateOrder()) return;
+        if (cart.length === 0) {
+            alert('Agrega al menos un servicio al carrito antes de ver la vista previa.');
+            return;
+        }
+        showPreview();
+    });
+
+    btnClosePreview.addEventListener('click', closePreview);
+    btnEditPreview.addEventListener('click', closePreview);
+
+    btnConfirmSend.addEventListener('click', () => {
+        closePreview();
+        submitOrder(false);
+    });
+
+    function showPreview() {
+        const formData = getFormData();
+        const previewContent = document.getElementById('preview-content');
+        
+        let html = '';
+
+        // Información del cliente
+        html += `
+            <div class="preview-section">
+                <div class="preview-section-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    Información del Cliente
+                </div>
+                <div class="preview-section-content">
+                    <div class="preview-info-row">
+                        <span class="preview-info-label">Nombre:</span>
+                        <span class="preview-info-value">${formData.name}</span>
+                    </div>
+                    <div class="preview-info-row">
+                        <span class="preview-info-label">Email:</span>
+                        <span class="preview-info-value">${formData.email}</span>
+                    </div>
+                    <div class="preview-info-row">
+                        <span class="preview-info-label">WhatsApp:</span>
+                        <span class="preview-info-value">${formData.phone}</span>
+                    </div>
+                    ${formData.company ? `
+                    <div class="preview-info-row">
+                        <span class="preview-info-label">Empresa:</span>
+                        <span class="preview-info-value">${formData.company}</span>
+                    </div>
+                    ` : ''}
+                    <div class="preview-info-row">
+                        <span class="preview-info-label">Fecha de entrega:</span>
+                        <span class="preview-info-value">${formData.date}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Servicios contratados
+        html += `
+            <div class="preview-section">
+                <div class="preview-section-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    Servicios Contratados
+                </div>
+                <div class="preview-section-content">
+        `;
+
+        cart.forEach((item, i) => {
+            const svc = SERVICES[item.serviceId];
+            const deliverables = svc && svc.deliverables && svc.deliverables[item.tier] ? svc.deliverables[item.tier] : [];
+            
+            html += `
+                <div class="preview-service-item">
+                    <div class="preview-service-header">
+                        <div>
+                            <h4 class="preview-service-title">${i + 1}. ${item.serviceName}</h4>
+                            <div class="preview-service-tier">${item.tierLabel}${item.qty > 1 ? ` × ${item.qty}` : ''}</div>
+                        </div>
+                        <div class="preview-service-price">${formatUSD(item.total)}</div>
+                    </div>
+            `;
+
+            if (deliverables.length > 0) {
+                html += `
+                    <div class="preview-deliverables">
+                        <div class="preview-deliverables-title">
+                            📋 Incluye:
+                        </div>
+                        <ul class="preview-deliverables-list">
+                            ${deliverables.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            const extrasLabels = [];
+            if (item.extras.rush) extrasLabels.push('⚡ Entrega urgente');
+            if (item.extras.lang) extrasLabels.push('🌐 Idioma adicional');
+            if (item.extras.revisions) extrasLabels.push('✏️ Revisiones extra');
+
+            if (extrasLabels.length > 0) {
+                html += `
+                    <div class="preview-extras">
+                        <div class="preview-extras-title">Extras:</div>
+                        <div class="preview-extras-list">
+                            ${extrasLabels.map(label => `<span class="preview-extra-badge">${label}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+        });
+
+        html += `
+                    <div class="preview-total">
+                        <span class="preview-total-label">Total del Proyecto:</span>
+                        <span class="preview-total-amount">${formatUSD(getCartTotal())}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Brief del proyecto
+        html += `
+            <div class="preview-section">
+                <div class="preview-section-title">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Brief del Proyecto
+                </div>
+                <div class="preview-brief">${formData.brief}</div>
+            </div>
+        `;
+
+        previewContent.innerHTML = html;
+        previewModal.style.display = 'flex';
+        previewModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePreview() {
+        previewModal.style.display = 'none';
+        previewModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    // Cerrar modal al hacer clic fuera
+    previewModal.addEventListener('click', (e) => {
+        if (e.target === previewModal) {
+            closePreview();
+        }
+    });
+
     const dateInput = document.getElementById('order-date');
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
